@@ -181,7 +181,6 @@ public class test_ProduktuKatalogas {
     public void spausdintiVisusProduktus_patikrintiSuNuliuProdoktu_returnVoid() {
 
         //Arrange
-
         ByteArrayOutputStream outputStreamCaptor = new ByteArrayOutputStream();
         System.setOut(new PrintStream(outputStreamCaptor));
 
@@ -194,6 +193,36 @@ public class test_ProduktuKatalogas {
         //Assert
         assertEquals(expected,actual);
     }
+
+    @Test
+    public void rusiuotiPagalKaina_patikrintiRusiavima_returnVoid() {
+
+        //Arrange
+        Maistas maistas = new Maistas(1,"Ledai",1.59, LocalDate.parse("06-07-2024", DateTimeFormatter.ofPattern("dd-MM-yyyy")));
+        Maistas maistas2 = new Maistas(2,"FDuona",0.59, LocalDate.parse("06-12-2024", DateTimeFormatter.ofPattern("dd-MM-yyyy")));
+        Maistas maistas3 = new Maistas(3,"Eco Bananai",0.59, LocalDate.parse("06-07-2024", DateTimeFormatter.ofPattern("dd-MM-yyyy")));
+        BuitineTechnika buitineTechnika = new BuitineTechnika(4,"Šaldytuvas",999.99, 3, "A klasė");
+        BuitineTechnika buitineTechnika2 = new BuitineTechnika(5,"Šildytuvas",11.99, 3, "B klasė");
+        BuitineTechnika buitineTechnika3 = new BuitineTechnika(6,"Fenas",19.99, 3, "C klasė");
+        produktuKatalogas.pridetiProdukta(maistas);
+        produktuKatalogas.pridetiProdukta(maistas2);
+        produktuKatalogas.pridetiProdukta(maistas3);
+        produktuKatalogas.pridetiProdukta(buitineTechnika);
+        produktuKatalogas.pridetiProdukta(buitineTechnika2);
+        produktuKatalogas.pridetiProdukta(buitineTechnika3);
+
+        Produktas expected = maistas3;
+
+        //Act
+        produktuKatalogas.rusiuotiPagalKaina();
+        Produktas actual = produktuKatalogas.getProduktai().getFirst();
+
+        //Assert
+        assertEquals(expected,actual);
+    }
+
+
+
 
 
 

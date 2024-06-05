@@ -11,6 +11,10 @@ public class ProduktuKatalogas <T extends Produktas>{
         this.produktai = new ArrayList<>();
     }
 
+    public List<T> getProduktai() {
+        return produktai;
+    }
+
     public boolean pridetiProdukta(T produktas){
         if (produktas == null) return false;
         if (gautiProdukta(produktas.getId()) != null) return false;
@@ -33,6 +37,17 @@ public class ProduktuKatalogas <T extends Produktas>{
         for(T t : produktai){
             System.out.println(t);
         }
+    }
+
+    public T gautiProduktaPagalPavadinima(String pavadinimas){
+        for(T t : produktai){
+            if(t.getPavadinimas().equals(pavadinimas)) return t;
+        }
+        return null;
+    }
+
+    public void rusiuotiPagalKaina(){
+        produktai.sort(new ProduktuKomparatorius<>());
     }
 
 

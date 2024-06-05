@@ -20,6 +20,10 @@ public abstract class Produktas {
         return kaina;
     }
 
+    public String getPavadinimas() {
+        return pavadinimas;
+    }
+
     @Override
     public String toString() {
         return String.format("Produkto id: %d ** pavadinimas: %s ** kaina %.2f",id,pavadinimas,kaina);
