@@ -18,4 +18,8 @@ public class Maistas extends Produktas{
         galiojimoData.format(formatter);
         return super.toString() + String.format(" ** galiojimo data: %s ", galiojimoData.toString());
     }
+
+    public LocalDate getGaliojimoData() {
+        return galiojimoData;
+    }
 }

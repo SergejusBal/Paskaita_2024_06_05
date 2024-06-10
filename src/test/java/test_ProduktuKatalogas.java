@@ -9,6 +9,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -219,6 +220,37 @@ public class test_ProduktuKatalogas {
 
         //Assert
         assertEquals(expected,actual);
+    }
+
+
+
+    @Test
+    public void gautiProduktusArtiGaliojimoPabaigos_patikrintiRusiavima_returnList() {
+
+        //Arrange
+
+
+
+        Maistas maistas = new Maistas(1,"Ledai",1.59,LocalDate.now().plusDays(8));
+        Maistas maistas2 = new Maistas(2,"FDuona",0.59, LocalDate.now().plusDays(5));
+        Maistas maistas3 = new Maistas(3,"Eco Bananai",0.59, LocalDate.now().plusDays(6));
+        BuitineTechnika buitineTechnika = new BuitineTechnika(4,"Šaldytuvas",999.99, 3, "A klasė");
+        BuitineTechnika buitineTechnika2 = new BuitineTechnika(5,"Šildytuvas",11.99, 3, "B klasė");
+        BuitineTechnika buitineTechnika3 = new BuitineTechnika(6,"Fenas",19.99, 3, "C klasė");
+        produktuKatalogas.pridetiProdukta(maistas);
+        produktuKatalogas.pridetiProdukta(maistas2);
+        produktuKatalogas.pridetiProdukta(maistas3);
+        produktuKatalogas.pridetiProdukta(buitineTechnika);
+        produktuKatalogas.pridetiProdukta(buitineTechnika2);
+        produktuKatalogas.pridetiProdukta(buitineTechnika3);
+
+        List<Produktas> expectedList = List.of(maistas2,maistas3);
+
+        //Act
+        List<Produktas> actualList = produktuKatalogas.gautiProduktusArtiGaliojimoPabaigos(7);
+
+        //Assert
+        assertEquals(expectedList,actualList);
     }
 
 

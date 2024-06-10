@@ -1,5 +1,6 @@
 package org.example.produktai;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -48,6 +49,39 @@ public class ProduktuKatalogas <T extends Produktas>{
 
     public void rusiuotiPagalKaina(){
         produktai.sort(new ProduktuKomparatorius<>());
+    }
+
+    public List<T> gautiProduktusArtiGaliojimoPabaigos(int dienos) {
+        List<T> listWithDaysLeft = new ArrayList<>();
+        List<T> currentProductList = new ArrayList<>();
+
+        for(T p : produktai){
+            try{
+                Maistas maistas = (Maistas) p;
+                currentProductList.add(p);
+            }catch (ClassCastException e){
+                continue;
+            }
+        }
+
+        currentProductList.sort(new ProduktuDatosKomperatorius<>());
+        LocalDate dateBefore = LocalDate.now();
+        dateBefore = dateBefore.plusDays(dienos);
+
+        boolean theIsMoreProducts = true;
+
+        for(int i = currentProductList.size()-1; i >= 0 ; i-- ){
+            Produktas produktas = currentProductList.get(i);
+            LocalDate produkDate = ((Maistas) produktas).getGaliojimoData();
+            if (produkDate.isBefore(dateBefore)){
+                listWithDaysLeft.add((T)produktas);
+            } else if (produkDate.isAfter(dateBefore)) {
+                break;
+            }
+
+        }
+
+        return listWithDaysLeft;
     }
 
 
